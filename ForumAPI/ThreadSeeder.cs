@@ -17,12 +17,9 @@ namespace ForumAPI
 
         public void Seed()
         {
-            if(_threadContext.Database.EnsureCreated())
+            if (!_threadContext.Threads.Any())
             {
-                if(_threadContext.Threads.Any())
-                {
-                    InsertSampleData();
-                }
+                InsertSampleData();
             }
         }
 

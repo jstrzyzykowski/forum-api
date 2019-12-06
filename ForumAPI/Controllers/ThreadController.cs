@@ -29,5 +29,21 @@ namespace ForumAPI.Controllers
 
             return Ok(threadDtos);
         }
+
+        [HttpGet("{id}")]
+        public ActionResult<ThreadDetailsDto> Get(int id)
+        {
+            var thread = _threadContext.Threads
+                .FirstOrDefault(m => m.Id == id);
+
+            if(thread == null)
+            {
+                return NotFound();
+            }
+
+            var threadDto = _mapper.Map<ThreadDetailsDto>(thread);
+
+            return Ok(threadDto);
+        }
     }
 }

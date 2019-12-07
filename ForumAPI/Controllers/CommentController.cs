@@ -22,6 +22,24 @@ namespace ForumAPI.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet]
+        public ActionResult Get(int threadId)
+        {
+            var thread = _threadContext.Threads
+                .Include(m => m.Comments)
+                .FirstOrDefault(m => m.Id == threadId);
+
+            if (thread == null)
+            {
+                return NotFound();
+            }
+
+            var comments = _mapper.Map<List<CommentDto>>(thread.Comments);
+
+            return Ok(comments);
+        }
+
+
         [HttpPost]
         public ActionResult Post(int threadId, [FromBody] CommentDto model)
         {

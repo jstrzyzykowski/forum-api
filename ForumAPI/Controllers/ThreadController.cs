@@ -45,5 +45,53 @@ namespace ForumAPI.Controllers
 
             return Ok(threadDto);
         }
+
+        [HttpPost]
+        public ActionResult Post([FromBody]ThreadDto model)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var thread = _mapper.Map<Thread>(model);
+            _threadContext.Threads.Add(thread);
+            _threadContext.SaveChanges();
+
+            var key = thread.Id;
+            //var tmp = _threadContext.Threads.Last<Thread>().Id;
+            //var key = tmp + 1;
+
+            return Created("api/thread/" + key, null);
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult Put(int id, [FromBody]ThreadDto model)
+        {
+            var thread = _threadContext.Threads
+                .FirstOrDefault(m => m.Id == id);
+
+            if (thread == null)
+            {
+                return NotFound();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            thread.Subject = model.Subject;
+            thread.AddDate = model.AddDate;
+            thread.UpdateDate = model.UpdateDate;
+            thread.Author = model.Author;
+            thread.Content = model.Content;
+
+            _threadContext.SaveChanges();
+
+            return NoContent();
+        }
+
+
     }
 }

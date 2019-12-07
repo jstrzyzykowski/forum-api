@@ -13,6 +13,7 @@ namespace ForumAPI
         public ThreadProfile()
         {
             CreateMap<Thread, ThreadDetailsDto>();
+            CreateMap<ThreadDto, Thread>();
         }
     }
 }

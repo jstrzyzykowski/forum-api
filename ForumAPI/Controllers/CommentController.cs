@@ -87,7 +87,6 @@ namespace ForumAPI.Controllers
             return Ok(comments);
         }
 
-
         [HttpPost]
         public ActionResult Post(int threadId, [FromBody] CommentDto model)
         {

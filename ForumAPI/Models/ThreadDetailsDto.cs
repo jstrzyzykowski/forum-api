@@ -13,5 +13,6 @@ namespace ForumAPI.Models
         public DateTime UpdateDate { get; set; }
         public string Author { get; set; }
         public string Content { get; set; }
+        public List<CommentDto> Comments { get; set; }
     }
 }

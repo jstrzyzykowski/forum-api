@@ -2,6 +2,7 @@
 using ForumAPI.Entities;
 using ForumAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,7 @@ namespace ForumAPI.Controllers
         public ActionResult<ThreadDetailsDto> Get(int id)
         {
             var thread = _threadContext.Threads
+                .Include(m => m.Comments)
                 .FirstOrDefault(m => m.Id == id);
 
             if(thread == null)

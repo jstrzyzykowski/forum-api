@@ -92,6 +92,21 @@ namespace ForumAPI.Controllers
             return NoContent();
         }
 
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id)
+        {
+            var thread = _threadContext.Threads
+                .FirstOrDefault(m => m.Id == id);
 
+            if (thread == null)
+            {
+                return NotFound();
+            }
+
+            _threadContext.Remove(thread);
+            _threadContext.SaveChanges();
+
+            return NoContent();
+        }
     }
 }

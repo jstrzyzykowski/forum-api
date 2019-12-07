@@ -22,6 +22,25 @@ namespace ForumAPI.Controllers
             _mapper = mapper;
         }
 
+        [HttpDelete]
+        public ActionResult Delete(int threadId)
+        {
+            var thread = _threadContext.Threads
+                .Include(m => m.Comments)
+                .FirstOrDefault(m => m.Id == threadId);
+
+            if (thread == null)
+            {
+                return NotFound();
+            }
+
+            _threadContext.Comments.RemoveRange(thread.Comments);
+            _threadContext.SaveChanges();
+
+            return NoContent();
+        }
+
+
         [HttpGet]
         public ActionResult Get(int threadId)
         {

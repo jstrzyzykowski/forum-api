@@ -17,8 +17,8 @@ namespace ForumAPI.Entities
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Thread>()
-                .HasMany(m => m.Comments)
-                .WithOne(l => l.Thread);
+                .HasMany(t => t.Comments)
+                .WithOne(c => c.Thread);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

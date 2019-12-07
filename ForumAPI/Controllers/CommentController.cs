@@ -26,8 +26,8 @@ namespace ForumAPI.Controllers
         public ActionResult Delete(int threadId, int commentId)
         {
             var thread = _threadContext.Threads
-                .Include(m => m.Comments)
-                .FirstOrDefault(m => m.Id == threadId);
+                .Include(t => t.Comments)
+                .FirstOrDefault(t => t.Id == threadId);
 
             if (thread == null)
             {
@@ -51,8 +51,8 @@ namespace ForumAPI.Controllers
         public ActionResult Delete(int threadId)
         {
             var thread = _threadContext.Threads
-                .Include(m => m.Comments)
-                .FirstOrDefault(m => m.Id == threadId);
+                .Include(t => t.Comments)
+                .FirstOrDefault(t => t.Id == threadId);
 
             if (thread == null)
             {
@@ -69,8 +69,8 @@ namespace ForumAPI.Controllers
         public ActionResult Get(int threadId)
         {
             var thread = _threadContext.Threads
-                .Include(m => m.Comments)
-                .FirstOrDefault(m => m.Id == threadId);
+                .Include(t => t.Comments)
+                .FirstOrDefault(t => t.Id == threadId);
 
             if (thread == null)
             {
@@ -92,8 +92,8 @@ namespace ForumAPI.Controllers
             }
 
             var thread = _threadContext.Threads
-                .Include(m => m.Comments)
-                .FirstOrDefault(m => m.Id == threadId);
+                .Include(t => t.Comments)
+                .FirstOrDefault(t => t.Id == threadId);
 
             if (thread == null)
             {

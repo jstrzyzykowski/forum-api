@@ -35,8 +35,8 @@ namespace ForumAPI.Controllers
         public ActionResult<ThreadDetailsDto> Get(int id)
         {
             var thread = _threadContext.Threads
-                .Include(m => m.Comments)
-                .FirstOrDefault(m => m.Id == id);
+                .Include(t => t.Comments)
+                .FirstOrDefault(t => t.Id == id);
 
             if(thread == null)
             {
@@ -71,7 +71,7 @@ namespace ForumAPI.Controllers
         public ActionResult Put(int id, [FromBody]ThreadDto model)
         {
             var thread = _threadContext.Threads
-                .FirstOrDefault(m => m.Id == id);
+                .FirstOrDefault(t => t.Id == id);
 
             if (thread == null)
             {
@@ -98,7 +98,7 @@ namespace ForumAPI.Controllers
         public ActionResult Delete(int id)
         {
             var thread = _threadContext.Threads
-                .FirstOrDefault(m => m.Id == id);
+                .FirstOrDefault(t => t.Id == id);
 
             if (thread == null)
             {

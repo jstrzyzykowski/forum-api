@@ -22,6 +22,31 @@ namespace ForumAPI.Controllers
             _mapper = mapper;
         }
 
+        [HttpDelete("{commentId}")]
+        public ActionResult Delete(int threadId, int commentId)
+        {
+            var thread = _threadContext.Threads
+                .Include(m => m.Comments)
+                .FirstOrDefault(m => m.Id == threadId);
+
+            if (thread == null)
+            {
+                return NotFound();
+            }
+
+            var comment = thread.Comments.FirstOrDefault(c => c.Id == commentId);
+
+            if (comment == null)
+            {
+                return NotFound();
+            }
+
+            _threadContext.Comments.Remove(comment);
+            _threadContext.SaveChanges();
+
+            return NoContent();
+        }
+
         [HttpDelete]
         public ActionResult Delete(int threadId)
         {
@@ -39,7 +64,6 @@ namespace ForumAPI.Controllers
 
             return NoContent();
         }
-
 
         [HttpGet]
         public ActionResult Get(int threadId)

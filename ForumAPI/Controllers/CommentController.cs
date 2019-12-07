@@ -3,6 +3,7 @@ using ForumAPI.Entities;
 using ForumAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,13 @@ namespace ForumAPI.Controllers
     {
         private readonly ThreadContext _threadContext;
         private readonly IMapper _mapper;
+        private readonly ILogger<CommentController> _logger;
 
-        public CommentController(ThreadContext threadContext, IMapper mapper)
+        public CommentController(ThreadContext threadContext, IMapper mapper, ILogger<CommentController> logger)
         {
             _threadContext = threadContext;
             _mapper = mapper;
+            _logger = logger;
         }
 
         [HttpDelete("{commentId}")]
@@ -58,6 +61,8 @@ namespace ForumAPI.Controllers
             {
                 return NotFound();
             }
+
+            _logger.LogWarning($"Wpisy dla watku {thread.Id} zostaly usuniete");
 
             _threadContext.Comments.RemoveRange(thread.Comments);
             _threadContext.SaveChanges();

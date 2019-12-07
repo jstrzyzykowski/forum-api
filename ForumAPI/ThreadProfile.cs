@@ -14,6 +14,7 @@ namespace ForumAPI
         {
             CreateMap<Thread, ThreadDetailsDto>();
             CreateMap<ThreadDto, Thread>();
+            CreateMap<CommentDto, Comment>();
         }
     }
 }
